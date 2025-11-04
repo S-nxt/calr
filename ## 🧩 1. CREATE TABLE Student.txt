@@ -1,0 +1,570 @@
+## 🧩 **1. CREATE TABLE Student**
+
+```sql
+CREATE TABLE Class (
+  class_id INT PRIMARY KEY AUTO_INCREMENT,
+  class_name VARCHAR(50)
+);
+
+CREATE TABLE Student (
+  student_id INT(11) NOT NULL AUTO_INCREMENT,
+  name VARCHAR(50) NOT NULL UNIQUE,
+  address VARCHAR(100) NOT NULL DEFAULT 'Birtamode',
+  class_id INT(11) NOT NULL,
+  section VARCHAR(50),
+  age INT(11) NOT NULL DEFAULT 16 CHECK (age >= 15),
+  PRIMARY KEY (student_id),
+  FOREIGN KEY (class_id) REFERENCES Class(class_id)
+);
+```
+
+---
+
+## ⚙️ **2. Drop Primary Key**
+
+```sql
+ALTER TABLE Student DROP PRIMARY KEY;
+```
+
+---
+
+## ⚙️ **3. Drop Foreign Key**
+
+```sql
+ALTER TABLE Student DROP FOREIGN KEY fk_class_id;
+-- or first check name using: SHOW CREATE TABLE Student;
+```
+
+---
+
+## ⚙️ **4. Set student_id as Primary Key**
+
+```sql
+ALTER TABLE Student ADD PRIMARY KEY (student_id);
+```
+
+---
+
+## ⚙️ **5. Set class_id as Foreign Key**
+
+```sql
+ALTER TABLE Student
+ADD CONSTRAINT fk_class_id FOREIGN KEY (class_id)
+REFERENCES Class(class_id);
+```
+
+---
+
+## ⚙️ **6. Remove Unique Constraint from name**
+
+```sql
+ALTER TABLE Student DROP INDEX name;
+```
+
+---
+
+## ⚙️ **7. Remove Default Constraint from age**
+
+```sql
+ALTER TABLE Student ALTER age DROP DEFAULT;
+```
+
+---
+
+## ⚙️ **8. Add Unique Constraint to section**
+
+```sql
+ALTER TABLE Student ADD CONSTRAINT unique_section UNIQUE (section);
+```
+
+---
+
+## ⚙️ **9. Add Default value 18 to age**
+
+```sql
+ALTER TABLE Student ALTER age SET DEFAULT 18;
+```
+
+---
+
+## ⚙️ **10. Change column name address → location**
+
+```sql
+ALTER TABLE Student CHANGE address location VARCHAR(100) NOT NULL DEFAULT 'Birtamode';
+```
+
+---
+
+## ⚙️ **11. Add new column email (NOT NULL)**
+
+```sql
+ALTER TABLE Student ADD email VARCHAR(100) NOT NULL;
+```
+
+---
+
+## ⚙️ **12. Remove column section**
+
+```sql
+ALTER TABLE Student DROP COLUMN section;
+```
+
+---
+
+## ⚙️ **13. Add new column contact (int)**
+
+```sql
+ALTER TABLE Student ADD contact INT;
+```
+
+---
+
+## ⚙️ **14. Change data type of contact to varchar & make unique**
+
+```sql
+ALTER TABLE Student MODIFY contact VARCHAR(20) UNIQUE;
+```
+
+---
+
+## ⚙️ **15. Change default value of address/location to 'Kathmandu'**
+
+```sql
+ALTER TABLE Student ALTER location SET DEFAULT 'Kathmandu';
+```
+
+---
+
+## ✍️ **16. Insert 5 Records**
+
+```sql
+INSERT INTO Student (name, location, class_id, age, email, contact)
+VALUES 
+('Ram', 'Birtamode', 1, 16, 'ram@gmail.com', '9811111111'),
+('Sita', 'Kathmandu', 2, 18, 'sita@gmail.com', '9822222222'),
+('Hari', 'Birtamode', 3, 19, 'hari@gmail.com', '9833333333'),
+('Gita', 'Btm', 1, 17, 'gita@gmail.com', '9844444444'),
+('Shyam', 'Ktm', 2, 20, 'shyam@gmail.com', '9855555555');
+```
+
+---
+
+## ✏️ **17. Update name & address of student whose id = 5**
+
+```sql
+UPDATE Student SET name='Amit', location='Pokhara' WHERE student_id=5;
+```
+
+---
+
+## 🧹 **18. Delete students with age > 20**
+
+```sql
+DELETE FROM Student WHERE age > 20;
+```
+
+---
+
+## ✏️ **19. Update age of student having address ‘btm’**
+
+```sql
+UPDATE Student SET age=age+1 WHERE LOWER(location)='btm';
+```
+
+---
+
+## 🧹 **20. Delete student having id = 1**
+
+```sql
+DELETE FROM Student WHERE student_id=1;
+```
+
+---
+
+## 🔍 **21. Select all records**
+
+```sql
+SELECT * FROM Student;
+```
+
+---
+
+## 🔍 **22. Select records where id = 3**
+
+```sql
+SELECT * FROM Student WHERE student_id=3;
+```
+
+---
+
+## 🔍 **23. Select name & address where age > 21**
+
+```sql
+SELECT name, location FROM Student WHERE age > 21;
+```
+
+---
+
+## 🔍 **24. Select id & name where address = Birtamode**
+
+```sql
+SELECT student_id, name FROM Student WHERE location='Birtamode';
+```
+
+---
+
+## 🔍 **25. Select students with class_id=5 & address=Kathmandu**
+
+```sql
+SELECT * FROM Student WHERE class_id=5 AND location='Kathmandu';
+```
+
+---
+
+## 🔍 **26. Select maximum age**
+
+```sql
+SELECT MAX(age) AS MaximumAge FROM Student;
+```
+
+---
+
+## 🔍 **27. Select minimum age where address=Birtamode**
+
+```sql
+SELECT MIN(age) AS MinimumAge FROM Student WHERE location='Birtamode';
+```
+
+---
+
+## 🔍 **28. Count students with class_id=5 & age>19**
+
+```sql
+SELECT COUNT(*) AS TotalStudents FROM Student WHERE class_id=5 AND age>19;
+```
+
+---
+
+## 🔍 **29. Average age where class_id=4 & section=B**
+
+```sql
+SELECT AVG(age) AS AverageAge FROM Student WHERE class_id=4 AND section='B';
+```
+
+---
+
+## 🔍 **30. Students whose address starts with ‘B’**
+
+```sql
+SELECT * FROM Student WHERE location LIKE 'B%';
+```
+
+---
+
+## 🔍 **31. Count students whose name ends with ‘R’**
+
+```sql
+SELECT COUNT(*) FROM Student WHERE name LIKE '%R';
+```
+
+---
+
+## 🔍 **32. Select name & age of students having address btm or ktm**
+
+```sql
+SELECT name, age FROM Student WHERE LOWER(location) IN ('btm', 'ktm');
+```
+
+---
+
+## 🔍 **33. Sum of age for id 1,2,3**
+
+```sql
+SELECT SUM(age) FROM Student WHERE student_id IN (1,2,3);
+```
+
+---
+
+## 🔍 **34. Students whose age between 18 & 22**
+
+```sql
+SELECT * FROM Student WHERE age BETWEEN 18 AND 22;
+```
+
+---
+
+## 🔍 **35. Total students in each age group**
+
+```sql
+SELECT age, COUNT(*) AS TotalStudents FROM Student GROUP BY age;
+```
+
+---
+
+## 🔍 **36. Class id, name & max age of each class**
+
+```sql
+SELECT class_id, name, MAX(age) AS MaxAge FROM Student GROUP BY class_id;
+```
+
+---
+
+## 🔍 **37. Records arranged descending by student_id**
+
+```sql
+SELECT * FROM Student ORDER BY student_id DESC;
+```
+
+---
+
+## 🔍 **38. student_id & name where age>20 ordered by name**
+
+```sql
+SELECT student_id, name FROM Student WHERE age>20 ORDER BY name ASC;
+```
+
+---
+
+## 🔍 **39. Students whose age is maximum**
+
+```sql
+SELECT * FROM Student WHERE age=(SELECT MAX(age) FROM Student);
+```
+
+---
+
+## 🔍 **40. student_id & name where id is maximum**
+
+```sql
+SELECT student_id, name FROM Student WHERE student_id=(SELECT MAX(student_id) FROM Student);
+```
+
+---
+
+## 🔍 **41. Students whose age < average age**
+
+```sql
+SELECT name, age FROM Student WHERE age < (SELECT AVG(age) FROM Student);
+```
+
+---
+
+## 🔍 **42. Students except btm & ktm (ascending by age)**
+
+```sql
+SELECT * FROM Student WHERE LOWER(location) NOT IN ('btm','ktm') ORDER BY age ASC;
+```
+
+---
+
+## 🔍 **43. Students not from address btm**
+
+```sql
+SELECT * FROM Student WHERE LOWER(location) <> 'btm';
+```
+
+---
+
+## 🔍 **44. Display location of Ram**
+
+```sql
+SELECT location FROM Student WHERE name='Ram';
+```
+
+---
+
+## 🔍 **45. All info + name & location of students from Birtamode**
+
+```sql
+SELECT * FROM Student WHERE location='Birtamode';
+```
+
+---
+
+## 🧾 **46. Create Employee & Department Tables**
+
+```sql
+CREATE TABLE Department (
+  Dept_Id INT PRIMARY KEY AUTO_INCREMENT,
+  Dept_Name VARCHAR(50),
+  Floor VARCHAR(50)
+);
+
+CREATE TABLE Employee (
+  Emp_Id INT PRIMARY KEY AUTO_INCREMENT,
+  Name VARCHAR(50) NOT NULL,
+  Address VARCHAR(100),
+  Salary DECIMAL(10,2),
+  Dept_Id INT,
+  Age INT,
+  FOREIGN KEY (Dept_Id) REFERENCES Department(Dept_Id)
+);
+```
+
+---
+
+## 🔗 **47. Use all joins to show Emp_Id, Name, Dept_Name**
+
+### INNER JOIN
+
+```sql
+SELECT E.Emp_Id, E.Name, D.Dept_Name
+FROM Employee E
+INNER JOIN Department D ON E.Dept_Id=D.Dept_Id;
+```
+
+### LEFT JOIN
+
+```sql
+SELECT E.Emp_Id, E.Name, D.Dept_Name
+FROM Employee E
+LEFT JOIN Department D ON E.Dept_Id=D.Dept_Id;
+```
+
+### RIGHT JOIN
+
+```sql
+SELECT E.Emp_Id, E.Name, D.Dept_Name
+FROM Employee E
+RIGHT JOIN Department D ON E.Dept_Id=D.Dept_Id;
+```
+
+---
+
+## 🔍 **48. Employees with salary between 10000–20000**
+
+```sql
+SELECT Name, Address FROM Employee WHERE Salary BETWEEN 10000 AND 20000;
+```
+
+---
+
+## 🔍 **49. Employees working on first floor**
+
+```sql
+SELECT E.Emp_Id, E.Name, D.Dept_Name
+FROM Employee E
+JOIN Department D ON E.Dept_Id=D.Dept_Id
+WHERE D.Floor='first';
+```
+
+---
+
+## 🔍 **50. Departments on second floor**
+
+```sql
+SELECT * FROM Department WHERE Floor='second';
+```
+
+---
+
+## 🔍 **51. Employees from Birtamode**
+
+```sql
+SELECT E.Name, E.Address, D.Dept_Name
+FROM Employee E
+JOIN Department D ON E.Dept_Id=D.Dept_Id
+WHERE E.Address='Birtamode';
+```
+
+---
+
+## 🔍 **52. Employees with salary>10000 and from Kathmandu**
+
+```sql
+SELECT Emp_Id, Name FROM Employee WHERE Salary>10000 AND Address='Kathmandu';
+```
+
+---
+
+## 🔍 **53. Name, Dept_Name & Floor where name starts with ‘R’ and age>30**
+
+```sql
+SELECT E.Name, D.Dept_Name, D.Floor
+FROM Employee E
+JOIN Department D ON E.Dept_Id=D.Dept_Id
+WHERE E.Name LIKE 'R%' AND E.Age>30;
+```
+
+---
+
+## 🔍 **54. Emp_Id, Dept_Name of employees on first floor ordered by salary**
+
+```sql
+SELECT E.Emp_Id, D.Dept_Name
+FROM Employee E
+JOIN Department D ON E.Dept_Id=D.Dept_Id
+WHERE D.Floor='first'
+ORDER BY E.Salary ASC;
+```
+
+---
+
+## 🔍 **55. Total employees in each department**
+
+```sql
+SELECT D.Dept_Name, COUNT(E.Emp_Id) AS TotalEmployees
+FROM Employee E
+JOIN Department D ON E.Dept_Id=D.Dept_Id
+GROUP BY D.Dept_Name;
+```
+
+---
+
+## 🔍 **56. Max salary on each floor where Dept = 'Finance'**
+
+```sql
+SELECT D.Floor, MAX(E.Salary) AS MaxSalary
+FROM Employee E
+JOIN Department D ON E.Dept_Id=D.Dept_Id
+WHERE D.Dept_Name='Finance'
+GROUP BY D.Floor;
+```
+
+---
+
+## 🔍 **57. Employees with salary > average salary**
+
+```sql
+SELECT E.Name, D.Dept_Name
+FROM Employee E
+JOIN Department D ON E.Dept_Id=D.Dept_Id
+WHERE E.Salary > (SELECT AVG(Salary) FROM Employee);
+```
+
+---
+
+## 🔍 **58. Employees with salary 20000–30000 & floor=‘second’**
+
+```sql
+SELECT E.Name, E.Address
+FROM Employee E
+JOIN Department D ON E.Dept_Id=D.Dept_Id
+WHERE E.Salary BETWEEN 20000 AND 30000
+AND D.Floor='second';
+```
+
+---
+
+## 🔍 **59. Employee whose age is minimum**
+
+```sql
+SELECT Name, D.Dept_Name FROM Employee E
+JOIN Department D ON E.Dept_Id=D.Dept_Id
+WHERE Age = (SELECT MIN(Age) FROM Employee);
+```
+
+---
+
+## 🔍 **60. Sum of salary where name ends with ‘s’ & Dept='Account'**
+
+```sql
+SELECT SUM(E.Salary) AS TotalSalary
+FROM Employee E
+JOIN Department D ON E.Dept_Id=D.Dept_Id
+WHERE E.Name LIKE '%s' AND D.Dept_Name='Account';
+```
+
+---
+
+Would you like me to format this into a **PDF cheatsheet** (like a report-style with syntax + explanation column)? It’ll be perfect for exam use.
