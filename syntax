@@ -1,0 +1,596 @@
+# 🧩 **DDL (Data Definition Language)**
+### **1. Create Table**
+
+```sql
+CREATE TABLE table_name (
+    column_name datatype(size) [NULL | NOT NULL] [DEFAULT value] [UNIQUE] [AUTO_INCREMENT],
+    column_name datatype(size),
+    ...
+    [PRIMARY KEY (column_name)],
+    [FOREIGN KEY (column_name) REFERENCES parent_table(column_name)],
+    [CHECK (condition)]
+);
+```
+
+---
+
+### **2. Drop Primary Key**
+
+```sql
+ALTER TABLE table_name DROP PRIMARY KEY;
+```
+
+---
+
+### **3. Drop Foreign Key**
+
+```sql
+ALTER TABLE table_name DROP FOREIGN KEY constraint_name;
+```
+
+---
+
+### **4. Add Primary Key**
+
+```sql
+ALTER TABLE table_name ADD PRIMARY KEY (column_name);
+```
+
+---
+
+### **5. Add Foreign Key**
+
+```sql
+ALTER TABLE table_name
+ADD CONSTRAINT constraint_name FOREIGN KEY (column_name)
+REFERENCES parent_table(column_name);
+```
+
+---
+
+### **6. Drop Unique Constraint**
+
+```sql
+ALTER TABLE table_name DROP INDEX column_name;
+```
+
+---
+
+### **7. Drop Default Constraint**
+
+```sql
+ALTER TABLE table_name ALTER column_name DROP DEFAULT;
+```
+
+---
+
+### **8. Add Unique Constraint**
+
+```sql
+ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE (column_name);
+```
+
+---
+
+### **9. Add Default Value**
+
+```sql
+ALTER TABLE table_name ALTER column_name SET DEFAULT value;
+```
+
+---
+
+### **10. Rename Column**
+
+```sql
+ALTER TABLE table_name CHANGE old_column_name new_column_name datatype(size);
+```
+
+---
+
+### **11. Add New Column (NOT NULL)**
+
+```sql
+ALTER TABLE table_name ADD column_name datatype(size) NOT NULL;
+```
+
+---
+
+### **12. Drop Column**
+
+```sql
+ALTER TABLE table_name DROP COLUMN column_name;
+```
+
+---
+
+### **13. Add New Column**
+
+```sql
+ALTER TABLE table_name ADD column_name datatype(size);
+```
+
+---
+
+### **14. Change Data Type & Add Unique Constraint**
+
+```sql
+ALTER TABLE table_name MODIFY column_name new_datatype(size) UNIQUE;
+```
+
+---
+
+### **15. Change Default Value**
+
+```sql
+ALTER TABLE table_name ALTER column_name SET DEFAULT value;
+```
+
+---
+
+# 🧮 **DML (Data Manipulation Language)**
+
+---
+
+### **16. Insert Record(s)**
+
+```sql
+INSERT INTO table_name (column1, column2, ...)
+VALUES (value1, value2, ...);
+```
+
+---
+
+### **17. Update Record(s)**
+
+```sql
+UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition;
+```
+
+---
+
+### **18. Delete Record(s)**
+
+```sql
+DELETE FROM table_name WHERE condition;
+```
+
+---
+
+### **19. Update Using Condition**
+
+```sql
+UPDATE table_name SET column_name = value WHERE condition;
+```
+
+---
+
+### **20. Delete Specific Record**
+
+```sql
+DELETE FROM table_name WHERE column_name = value;
+```
+
+---
+
+# 🔍 **SELECT (Data Retrieval Queries)**
+
+---
+
+### **21. Select All Records**
+
+```sql
+SELECT * FROM table_name;
+```
+
+---
+
+### **22. Select Records with Condition**
+
+```sql
+SELECT * FROM table_name WHERE condition;
+```
+
+---
+
+### **23. Select Specific Columns**
+
+```sql
+SELECT column1, column2 FROM table_name WHERE condition;
+```
+
+---
+
+### **24. Select Columns with Equality Condition**
+
+```sql
+SELECT column1, column2 FROM table_name WHERE column_name = value;
+```
+
+---
+
+### **25. Select with Multiple Conditions**
+
+```sql
+SELECT * FROM table_name WHERE column1 = value1 AND column2 = value2;
+```
+
+---
+
+### **26. Select Maximum Value**
+
+```sql
+SELECT MAX(column_name) FROM table_name;
+```
+
+---
+
+### **27. Select Minimum Value with Condition**
+
+```sql
+SELECT MIN(column_name) FROM table_name WHERE condition;
+```
+
+---
+
+### **28. Count Records**
+
+```sql
+SELECT COUNT(*) FROM table_name WHERE condition;
+```
+
+---
+
+### **29. Average Value**
+
+```sql
+SELECT AVG(column_name) FROM table_name WHERE condition;
+```
+
+---
+
+### **30. Value Starting with Specific Letter**
+
+```sql
+SELECT * FROM table_name WHERE column_name LIKE 'A%';
+```
+
+---
+
+### **31. Value Ending with Specific Letter**
+
+```sql
+SELECT COUNT(*) FROM table_name WHERE column_name LIKE '%A';
+```
+
+---
+
+### **32. Using OR Condition**
+
+```sql
+SELECT column1, column2 FROM table_name
+WHERE column_name IN (value1, value2);
+```
+
+---
+
+### **33. Sum of Values**
+
+```sql
+SELECT SUM(column_name) FROM table_name WHERE condition;
+```
+
+---
+
+### **34. Between Two Values**
+
+```sql
+SELECT * FROM table_name WHERE column_name BETWEEN value1 AND value2;
+```
+
+---
+
+### **35. Grouping Records**
+
+```sql
+SELECT column_name, COUNT(*) FROM table_name GROUP BY column_name;
+```
+
+---
+
+### **36. Group with Aggregate Function**
+
+```sql
+SELECT group_column, MAX(column_name)
+FROM table_name
+GROUP BY group_column;
+```
+
+---
+
+### **37. Order by Descending**
+
+```sql
+SELECT * FROM table_name ORDER BY column_name DESC;
+```
+
+---
+
+### **38. Order by Ascending**
+
+```sql
+SELECT column1, column2 FROM table_name
+WHERE condition
+ORDER BY column_name ASC;
+```
+
+---
+
+### **39. Subquery (Find Max Value)**
+
+```sql
+SELECT * FROM table_name
+WHERE column_name = (SELECT MAX(column_name) FROM table_name);
+```
+
+---
+
+### **40. Subquery for Maximum ID**
+
+```sql
+SELECT column1, column2 FROM table_name
+WHERE id_column = (SELECT MAX(id_column) FROM table_name);
+```
+
+---
+
+### **41. Compare with Average**
+
+```sql
+SELECT column1, column2 FROM table_name
+WHERE column_name < (SELECT AVG(column_name) FROM table_name);
+```
+
+---
+
+### **42. Exclude Certain Values**
+
+```sql
+SELECT * FROM table_name
+WHERE column_name NOT IN (value1, value2)
+ORDER BY another_column ASC;
+```
+
+---
+
+### **43. Not Equal To**
+
+```sql
+SELECT * FROM table_name WHERE column_name <> value;
+```
+
+---
+
+### **44. Display Specific Column Based on Name**
+
+```sql
+SELECT column_name FROM table_name WHERE another_column = value;
+```
+
+---
+
+### **45. Filtered Select**
+
+```sql
+SELECT * FROM table_name WHERE column_name = value;
+```
+
+---
+
+# 🧾 **Employee and Department Tables**
+
+---
+
+### **46. Create Employee and Department Tables**
+
+```sql
+CREATE TABLE Department (
+    Dept_Id INT PRIMARY KEY AUTO_INCREMENT,
+    Dept_Name VARCHAR(50),
+    Floor VARCHAR(50)
+);
+
+CREATE TABLE Employee (
+    Emp_Id INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(50) NOT NULL,
+    Address VARCHAR(100),
+    Salary DECIMAL(10,2),
+    Age INT,
+    Dept_Id INT,
+    FOREIGN KEY (Dept_Id) REFERENCES Department(Dept_Id)
+);
+```
+
+---
+
+# 🔗 **JOINS**
+
+---
+
+### **47. INNER JOIN**
+
+```sql
+SELECT E.column1, E.column2, D.column_name
+FROM Employee E
+INNER JOIN Department D
+ON E.Dept_Id = D.Dept_Id;
+```
+
+### **LEFT JOIN**
+
+```sql
+SELECT E.column1, D.column_name
+FROM Employee E
+LEFT JOIN Department D
+ON E.Dept_Id = D.Dept_Id;
+```
+
+### **RIGHT JOIN**
+
+```sql
+SELECT E.column1, D.column_name
+FROM Employee E
+RIGHT JOIN Department D
+ON E.Dept_Id = D.Dept_Id;
+```
+
+---
+
+# 📊 **Aggregate & Conditional Queries**
+
+---
+
+### **48. Between Salary Range**
+
+```sql
+SELECT column1, column2 FROM Employee
+WHERE Salary BETWEEN value1 AND value2;
+```
+
+---
+
+### **49. Condition on Another Table**
+
+```sql
+SELECT E.Emp_Id, E.Name, D.Dept_Name
+FROM Employee E
+JOIN Department D ON E.Dept_Id = D.Dept_Id
+WHERE D.Floor = 'first';
+```
+
+---
+
+### **50. Filter by Floor**
+
+```sql
+SELECT * FROM Department WHERE Floor = 'second';
+```
+
+---
+
+### **51. Join with Address Filter**
+
+```sql
+SELECT E.Name, E.Address, D.Dept_Name
+FROM Employee E
+JOIN Department D ON E.Dept_Id = D.Dept_Id
+WHERE E.Address = 'value';
+```
+
+---
+
+### **52. Multiple Conditions**
+
+```sql
+SELECT Emp_Id, Name FROM Employee
+WHERE Salary > value AND Address = 'value';
+```
+
+---
+
+### **53. LIKE with Age Condition**
+
+```sql
+SELECT E.Name, D.Dept_Name, D.Floor
+FROM Employee E
+JOIN Department D ON E.Dept_Id = D.Dept_Id
+WHERE E.Name LIKE 'R%' AND E.Age > value;
+```
+
+---
+
+### **54. ORDER BY after JOIN**
+
+```sql
+SELECT E.Emp_Id, D.Dept_Name
+FROM Employee E
+JOIN Department D ON E.Dept_Id = D.Dept_Id
+WHERE D.Floor = 'first'
+ORDER BY E.Salary ASC;
+```
+
+---
+
+### **55. COUNT per Group**
+
+```sql
+SELECT D.Dept_Name, COUNT(E.Emp_Id)
+FROM Employee E
+JOIN Department D ON E.Dept_Id = D.Dept_Id
+GROUP BY D.Dept_Name;
+```
+
+---
+
+### **56. MAX per Floor**
+
+```sql
+SELECT D.Floor, MAX(E.Salary)
+FROM Employee E
+JOIN Department D ON E.Dept_Id = D.Dept_Id
+WHERE D.Dept_Name = 'Finance'
+GROUP BY D.Floor;
+```
+
+---
+
+### **57. Salary Greater than Average**
+
+```sql
+SELECT E.Name, D.Dept_Name
+FROM Employee E
+JOIN Department D ON E.Dept_Id = D.Dept_Id
+WHERE E.Salary > (SELECT AVG(Salary) FROM Employee);
+```
+
+---
+
+### **58. Salary Range + Floor Filter**
+
+```sql
+SELECT E.Name, E.Address
+FROM Employee E
+JOIN Department D ON E.Dept_Id = D.Dept_Id
+WHERE E.Salary BETWEEN value1 AND value2
+AND D.Floor = 'second';
+```
+
+---
+
+### **59. Minimum Age**
+
+```sql
+SELECT E.Name, D.Dept_Name
+FROM Employee E
+JOIN Department D ON E.Dept_Id = D.Dept_Id
+WHERE E.Age = (SELECT MIN(Age) FROM Employee);
+```
+
+---
+
+### **60. Sum with LIKE Condition**
+
+```sql
+SELECT SUM(E.Salary)
+FROM Employee E
+JOIN Department D ON E.Dept_Id = D.Dept_Id
+WHERE E.Name LIKE '%s'
+AND D.Dept_Name = 'Account';
+```
+
+---
+
+Would you like me to turn this into a **formatted exam-ready SQL Syntax PDF** (with “Query Name | Syntax | Example | Description” table format)?
+It would be perfect as a one-page revision sheet.
